@@ -19,8 +19,18 @@ Rails.application.configure do
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
+    # config.active_record.cache_versioning = false
 
-    config.cache_store = :memory_store
+    redis_cache_config = YAML::load(File.open("#{Rails.root}/config/redis.yml"))[Rails.env]['cache']
+    config.cache_store = :redis_cache_store, {
+      expires_in: 1.hour,
+      driver: :hiredis,
+      namespace: redis_cache_config["namespace"],
+      redis: {
+        host: redis_cache_config['host'],
+        port: redis_cache_config['port']
+      }
+    }
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"
     }

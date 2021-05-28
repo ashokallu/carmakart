@@ -31,10 +31,13 @@ gem 'dalli' # High performance memcached client for Ruby.
 
 # Redis
 gem 'redis' # A Ruby client that tries to match Redis' API one-to-one.
-gem 'redis-namespace' # Adds a Redis::Namespace class which can be used to namespace calls to Redis.
-gem 'redis-objects' # Map Redis types directly to Ruby objects. Works with any class or ORM.
 gem 'redis-rails' # Redis for Ruby on Rails.
-gem 'redis-session-store' # A drop-in replacement for e.g. MemCacheStore to store Rails sessions
+gem 'hiredis'
+gem 'redis-namespace' # Adds a Redis::Namespace class which can be used to namespace calls to Redis.
+# gem 'redis-objects' # Map Redis types directly to Ruby objects. Works with any class or ORM.
+gem 'redis-rack-cache'
+# gem 'redis-store'
+# gem 'redis-session-store' # A drop-in replacement for e.g. MemCacheStore to store Rails sessions
 
 # Search
 gem 'sunspot_rails' # Sunspot::Rails is an extension to the Sunspot library for Solr search.

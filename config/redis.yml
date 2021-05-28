@@ -8,6 +8,9 @@ development: &development
   cart:
     namespace: "carmakart:cart"
     <<: *redis
+  cache:
+    namespace: "carmakart:cache"
+    <<: *redis
 
 production:
   <<: *development
