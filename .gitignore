@@ -34,3 +34,10 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Ignore files generated for indexing and running (PIDs) for solr
+solr/data
+solr/test/data
+solr/development/data
+solr/default/data
+solr/pids

@@ -24,11 +24,6 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
-# Search
-gem 'sunspot_rails' # Sunspot::Rails is an extension to the Sunspot library for Solr search.
-# optional pre-packaged Solr distribution for use in development. Not for use in production.
-gem 'sunspot_solr' # Sunspot::Solr provides a bundled Solr distribution for use with Sunspot.
-
 # Pagination
 gem 'kaminari' # Scope & Engine based, clean, powerful, customizable paginator for Rails 4+.
 
@@ -40,6 +35,11 @@ gem 'redis-namespace' # Adds a Redis::Namespace class which can be used to names
 gem 'redis-objects' # Map Redis types directly to Ruby objects. Works with any class or ORM.
 gem 'redis-rails' # Redis for Ruby on Rails.
 gem 'redis-session-store' # A drop-in replacement for e.g. MemCacheStore to store Rails sessions
+
+# Search
+gem 'sunspot_rails' # Sunspot::Rails is an extension to the Sunspot library for Solr search.
+# optional pre-packaged Solr distribution for use in development. Not for use in production.
+gem 'sunspot_solr' # Sunspot::Solr provides a bundled Solr distribution for use with Sunspot.
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
