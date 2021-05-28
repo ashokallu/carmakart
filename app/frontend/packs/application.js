@@ -8,9 +8,8 @@ import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
-import 'bootstrap'
-import '../stylesheets/bootstrap.scss'
-import $ from "jquery"
+import '../src/bootstrap'
+import $ from 'jquery'
 
 Rails.start()
 ActiveStorage.start()
