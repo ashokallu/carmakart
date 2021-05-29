@@ -34,5 +34,8 @@ module Carmakart
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.autoload_paths += [Rails.root.join('lib', 'extras').to_s]
+    config.eager_load_paths += [Rails.root.join('lib', 'extras').to_s]
   end
 end

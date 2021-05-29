@@ -56,8 +56,8 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 # test:
-  <<: *default
-  database: carmakart_test
+  # <<: *default
+  # database: carmakart_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -79,8 +79,8 @@ development:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 # production:
-  <<: *default
-  database: carmakart_production
-  username: postgres
-  # password: <%= ENV['ALPHA_DATABASE_PASSWORD'] %>
-  password: postgres
+  # <<: *default
+  # database: carmakart_production
+  # username: postgres
+  # # password: <%= ENV['ALPHA_DATABASE_PASSWORD'] %>
+  # password: postgres

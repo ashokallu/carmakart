@@ -27,15 +27,16 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Pagination
 gem 'kaminari' # Scope & Engine based, clean, powerful, customizable paginator for Rails 4+.
 
-gem 'dalli' # High performance memcached client for Ruby.
+# gem 'dalli' # High performance memcached client for Ruby.
 
 # Redis
 gem 'redis' # A Ruby client that tries to match Redis' API one-to-one.
 gem 'redis-rails' # Redis for Ruby on Rails.
-gem 'hiredis'
+# Map Redis types directly to Ruby objects. Works with any class or ORM.
+gem 'redis-objects', :path => 'vendor/git/redis-objects-master'
+# gem 'hiredis'
 gem 'redis-namespace' # Adds a Redis::Namespace class which can be used to namespace calls to Redis.
-# gem 'redis-objects' # Map Redis types directly to Ruby objects. Works with any class or ORM.
-gem 'redis-rack-cache'
+# gem 'redis-rack-cache'
 # gem 'redis-store'
 # gem 'redis-session-store' # A drop-in replacement for e.g. MemCacheStore to store Rails sessions
 
