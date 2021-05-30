@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   resources :customers, only: [:index] do
     collection do
       post 'add_product_to_wishlist'
+      post 'remove_product_from_wishlist'
+      get 'wishlist'
+      get 'product'
     end
     member do
-      post 'remove_product_from_wishlist'
       post 'add_product_to_cart'
       post 'remove_product_from_cart'
     end

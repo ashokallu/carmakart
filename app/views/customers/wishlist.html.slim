@@ -1,0 +1,7 @@
+== javascript_packs_with_chunks_tag 'customers'
+== stylesheet_packs_with_chunks_tag 'customers', media: 'all'
+
+.container-fluid.p-0
+  .row.row-cols-sm-2.row-cols-md-3.row-cols-lg-4.p-0.bg-white
+    - @products.each do |product|
+      == render 'shared/product', item: product, for_wishlist: @for_wishlist

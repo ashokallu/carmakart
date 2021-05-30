@@ -3,11 +3,11 @@ ul.nav.bg-primary.shadow-sm.justify-content-end.mt-2
     a.nav-link.px-1.active[aria-current="page" href="#"]
       | Active
   li.nav-item
-    a.nav-link.px-1[href="#"]
+    a.nav-link.px-1[href="#{wishlist_customers_path}"]
       button.btn.btn-primary.btn-sm[type="button"]
         |  Wishlist
-        span.badge.bg-secondary.ms-2
-          | 4
+        span.badge.bg-secondary.ms-2#wishlist-count
+          | #{current_customer.wishlist_products.count}
   li.nav-item
     a.nav-link.px-1[href="#"]
       button.btn.btn-primary.btn-sm[type="button"]

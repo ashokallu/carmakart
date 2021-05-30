@@ -1,0 +1,7 @@
+- if @wishlist_items_count
+  - selector = "#wishlist-count"
+  - linkSelector = "#add-to-wishlist-#{@product_variant_id}"
+| if ($('#{selector}').length > 0) { $("#{selector}").html(#{@wishlist_items_count}); };
+| if ($('#{linkSelector}').length > 0) { $("#{linkSelector}").html('remove from wishlist'); };
+| if ($('#{linkSelector}').length > 0) { $("#{linkSelector}").attr('href', "#{remove_product_from_wishlist_customers_path(variant_id: @product_variant_id)}"); };
+| if ($('#{linkSelector}').length > 0) { $("#{linkSelector}").attr('id', "remove-from-wishlist-#{@product_variant_id}"); };

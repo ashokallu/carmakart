@@ -41,6 +41,28 @@ class Product < ApplicationRecord
       end
     end
 
+    def build_product_for_card(product_variant_id, to_json = false)
+      begin
+        product_variant = ProductVariant.find(product_variant_id)
+        product = product_variant.product
+        brand = product.brand
+        product_details_hash = product.instance_eval do
+          {
+            product_id: id,
+            product_brand_id: brand.id,
+            product_brand_name: brand.name,
+            variant_id: product_variant.id,
+            variant_name: product_variant.name,
+            variant_price: product_variant.variant_price,
+            **available_variants_hash
+          }.symbolize_keys
+        end
+        to_json ? product_details_hash.to_json : product_details_hash
+      rescue
+        {}
+      end
+    end
+
     def primary_product_listings(to_json = false)
       Rails.cache.fetch [__method__], expires_in: 30.minutes do
         all = ids.map do |id|
