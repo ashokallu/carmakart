@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 2021_05_29_053749) do
   create_table "product_variants", force: :cascade do |t|
     t.string "sku_id", limit: 16, null: false
     t.string "name", limit: 128, null: false
+    t.integer "variant_price", null: false
+    t.decimal "discount", precision: 5, scale: 3
     t.jsonb "variant_specific_attributes", default: "{}", null: false
     t.jsonb "product_specific_attributes", default: "{}", null: false
     t.bigint "product_id", null: false
@@ -55,15 +57,16 @@ ActiveRecord::Schema.define(version: 2021_05_29_053749) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_product_variants_on_name"
     t.index ["product_id"], name: "index_product_variants_on_product_id"
-    t.index ["product_specific_attributes"], name: "index_product_variants_on_product_specific_attributes"
+    t.index ["product_specific_attributes"], name: "index_product_variants_on_product_specific_attributes", using: :gin
     t.index ["product_type_id"], name: "index_product_variants_on_product_type_id"
     t.index ["sku_id"], name: "index_product_variants_on_sku_id", unique: true
-    t.index ["variant_specific_attributes"], name: "index_product_variants_on_variant_specific_attributes"
+    t.index ["variant_specific_attributes"], name: "index_product_variants_on_variant_specific_attributes", using: :gin
   end
 
   create_table "products", force: :cascade do |t|
     t.text "product_name", null: false
     t.text "product_description"
+    t.text "variant_attributes", default: [], array: true
     t.bigint "product_type_id", null: false
     t.bigint "brand_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -72,6 +75,7 @@ ActiveRecord::Schema.define(version: 2021_05_29_053749) do
     t.index ["product_description"], name: "index_products_on_product_description"
     t.index ["product_name"], name: "index_products_on_product_name"
     t.index ["product_type_id"], name: "index_products_on_product_type_id"
+    t.index ["variant_attributes"], name: "index_products_on_variant_attributes", using: :gin
   end
 
   add_foreign_key "product_variants", "product_types"

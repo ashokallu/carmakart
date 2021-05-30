@@ -5,5 +5,5 @@ class Brand < ApplicationRecord
   has_and_belongs_to_many :product_types
 
   # one-to-many relationship.
-  has_many :products
+  has_many :products, dependent: :destroy
 end

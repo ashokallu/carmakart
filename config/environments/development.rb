@@ -23,13 +23,8 @@ Rails.application.configure do
 
     redis_cache_config = YAML::load(File.open("#{Rails.root}/config/redis.yml"))[Rails.env]['cache']
     config.cache_store = :redis_cache_store, {
-      expires_in: 1.hour,
-      driver: :hiredis,
+      expires_in: 2.hours,
       namespace: redis_cache_config["namespace"],
-      redis: {
-        host: redis_cache_config['host'],
-        port: redis_cache_config['port']
-      }
     }
     config.public_file_server.headers = {
       'Cache-Control' => "public, max-age=#{2.days.to_i}"

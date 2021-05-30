@@ -152,7 +152,7 @@ colors.each do |color|
   end
 end;
 
-2.times do
+3.times do
   product = products.shift
   product_variants_arr = []
   variants_hashes.each do |variants_hash|
@@ -165,6 +165,7 @@ end;
       product_type: product_type,
       product: product,
       name: name,
+      variant_price: rand(3000),
       variant_specific_attributes: variant_specific_attributes,
       product_specific_attributes: product_specific_attributes
     }
@@ -233,7 +234,7 @@ colors.each do |color|
   end
 end;
 
-2.times do
+3.times do
   product_variant_arr = []
   product = products.shift
   variants_hashes.each do |variants_hash|
@@ -246,6 +247,7 @@ end;
       product_type: product_type,
       product: product,
       name: name,
+      variant_price: rand(2000),
       variant_specific_attributes: variant_specific_attributes,
       product_specific_attributes: product_specific_attributes
     }
@@ -290,7 +292,7 @@ colors.each do |color|
   end
 end;
 
-2.times do
+3.times do
   product_variant_arr = []
   product = products.shift
   variants_hashes.each do |variants_hash|
@@ -303,9 +305,13 @@ end;
       product_type: product_type,
       product: product,
       name: name,
+      variant_price: rand(5000),
       variant_specific_attributes: variant_specific_attributes,
       product_specific_attributes: product_specific_attributes
     }
   end
   ProductVariant.create(product_variant_arr)
 end;
+
+# This will remove records from ProductVariant model that were created with empty "variant_specific_attributes" column
+ProductVariant.where(variant_specific_attributes: {}).destroy_all

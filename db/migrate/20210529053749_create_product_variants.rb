@@ -3,6 +3,8 @@ class CreateProductVariants < ActiveRecord::Migration[6.1]
     create_table :product_variants do |t|
       t.string :sku_id, limit: 16, null: false
       t.string :name, limit: 128, null: false
+      t.integer :variant_price, null: false
+      t.decimal :discount, precision: 5, scale: 3
       t.jsonb :variant_specific_attributes, null: false, default: '{}'
       t.jsonb :product_specific_attributes, null: false, default: '{}'
       t.references :product, null: false, foreign_key: true

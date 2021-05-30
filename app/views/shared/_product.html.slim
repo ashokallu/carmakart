@@ -1,0 +1,37 @@
+.col.my-2
+  .card.shadow-sm.border.border-dark[style="width: 190px;height:420px;"]
+    img src="#{asset_pack_path 'media/images/black-t-shirt.jpeg', size: '10x10', alt: 'Edit Entry'}"
+    .card-body.pt-2
+      .variants-info.d-flex.my-2.px-0.py-0.justify-content-around[style="font-size:0.6rem;"]
+        div.border.border-dark.rounded-circle.m-1.bg-dark
+          span.text-dark 100
+        div.border.border-dark.rounded-circle.m-1.bg-primary
+          span.text-primary 100
+        div.border.border-dark.rounded-circle.m-1.bg-secondary
+          span.text-secondary 100
+        div.border.border-dark.rounded-circle.m-1.bg-info
+          span.text-info 100
+        div.border.border-dark.rounded-circle.m-1.bg-danger
+          span.text-danger 100
+      .variants-info.d-flex.my-2.px-0.py-0.justify-content-around[style="font-size:0.6rem;"]
+        div.border.border-dark.rounded-circle.m-1.bg-dark
+          span.text-dark 100
+        div.border.border-dark.rounded-circle.m-1.bg-primary
+          span.text-primary 100
+        div.border.border-dark.rounded-circle.m-1.bg-secondary
+          span.text-secondary 100
+        div.border.border-dark.rounded-circle.m-1.bg-info
+          span.text-info 100
+        div.border.border-dark.rounded-circle.m-1.bg-danger
+          span.text-danger 100
+      h5.card-title.mb-1[style="font-size:0.80rem;"]
+        == item[:product_brand_name]
+      p.mb-1[style="font-size:0.60rem;"]
+        == truncate item[:variant_name], length: 30
+      p.mb-1.mt-3[style="font-size:0.70rem;"]
+        | Price: ₹#{item[:variant_price]}
+      .wishlist.d-flex.justify-content-between
+        p[style="font-size:0.75rem;"]
+          == link_to 'more...', product_path(item[:product_id], variant_id: item[:variant_id])
+        p[style="font-size:0.75rem;"]
+          == link_to 'add to wishlist', add_product_to_wishlist_customers_path(variant_id: item[:variant_id]), method: :post, remote: true

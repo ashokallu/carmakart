@@ -8,5 +8,11 @@ html
     = csp_meta_tag
     = stylesheet_packs_with_chunks_tag 'application', media: 'all'
     = javascript_packs_with_chunks_tag 'application'
-  body
-    = yield
+  body.bg-light
+    = render 'shared/top_nav'
+    .container-fluid.mt-2.px-4
+      .row.bg-white
+        .col-2.border.border-dark.shadow-sm.me-1.bg-white
+          |
+        .col.border.border-dark.bg-white.ms-1.bg-white
+          = yield
