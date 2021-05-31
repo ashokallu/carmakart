@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id                  :bigint           not null, primary key
+#  product_name        :text             not null
+#  product_description :text
+#  variant_attributes  :text             default([]), is an Array
+#  product_type_id     :bigint           not null
+#  brand_id            :bigint           not null
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
 class Product < ApplicationRecord
   include Redis::Objects
 

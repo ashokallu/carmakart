@@ -1,3 +1,10 @@
+# == Schema Information
+#
+# Table name: brands
+#
+#  id   :bigint           not null, primary key
+#  name :string(64)       not null
+#
 class Brand < ApplicationRecord
   # many-to-many relationship
   # Shirt is a product_types which can belong to many brands

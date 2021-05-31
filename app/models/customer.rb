@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: customers
+#
+#  id         :bigint           not null, primary key
+#  first_name :string(64)       not null
+#  last_name  :string(64)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class Customer < ApplicationRecord
   include Redis::Objects
 

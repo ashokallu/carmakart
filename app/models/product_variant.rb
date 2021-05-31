@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: product_variants
+#
+#  id                          :bigint           not null, primary key
+#  sku_id                      :string(16)       not null
+#  name                        :string(128)      not null
+#  variant_price               :integer          not null
+#  discount                    :decimal(5, 3)
+#  variant_specific_attributes :jsonb            not null
+#  product_specific_attributes :jsonb            not null
+#  product_id                  :bigint           not null
+#  product_type_id             :bigint           not null
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#
 class ProductVariant < ApplicationRecord
   include Redis::Objects
 
