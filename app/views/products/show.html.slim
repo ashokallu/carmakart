@@ -2,12 +2,14 @@
 == stylesheet_packs_with_chunks_tag 'products', media: 'all'
 
 - item = @product_description_hash
+- image_dir = item[:product_type].split.join.downcase.gsub("-", "")
+- image_name = item[:color].downcase
+- image_path = "media/images/#{image_dir}/#{image_name}.jpeg"
 
-/ .card.mb-3[style="max-width: 1024;"]
 .card.mb-3
   .row.g-0
     .col-3.col-sm-6.col-md-5.col-lg-4.my-2.d-flex.justify-content-center
-      == image_tag("#{asset_pack_path 'media/images/black-t-shirt.jpeg', alt: 'Edit Entry'}", {:style => "width:250px;height:325px;"})
+      == image_tag("#{asset_pack_path image_path, alt: 'Edit Entry'}", {:style => "width:250px;height:325px;"})
     .col
       .card-body
         p.mt-1.text-uppercase.fw-light.mb-1[style="font-size:0.6rem;"] == item[:product_brand_name]
@@ -19,11 +21,11 @@
           span.border.border-dark.p-1 == item[:color]
         .d-flex.justify-content-between[style="width:300px;"]
           p
-            span.border.border-dark.p-1 == item[:fabric]
+            span.border.border-dark.p-1 == item[:fabric] || item[:closure]
           p
-            span.border.border-dark.p-1 == item[:sleeve]
+            span.border.border-dark.p-1 == item[:sleeve] || item[:occassion]
           p
-            span.border.border-dark.p-1 == item[:pattern]
+            span.border.border-dark.p-1 == item[:pattern] || "Running"
         div
           | SKU ID :
           span == item[:sku_id]

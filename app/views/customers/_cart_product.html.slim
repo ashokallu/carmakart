@@ -1,8 +1,11 @@
 - for_cart ||= false
+- image_dir = item[:product_type].split.join.downcase.gsub("-", "")
+- image_name = item[:color].downcase
+- image_path = "media/images/#{image_dir}/#{image_name}.jpeg"
 div id="product-#{item[:variant_id]}#{for_cart ? '-cart': ''}"
   .col.my-2
     .card.shadow[style="width: 190px;height:380px;"]
-      img src="#{asset_pack_path 'media/images/black-t-shirt.jpeg', size: '10x10', alt: 'Product is Missing'}"
+      img src="#{asset_pack_path image_path, size: '10x10', alt: 'Product is Missing'}"
       .card-body.pt-1
         .variants-info.d-flex.my-2.px-0.py-0.justify-content-around[style="font-size:0.6rem;"]
           div.border.border-dark.m-1[style="width:30px;"]

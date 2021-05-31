@@ -45,7 +45,7 @@ class ProductVariant < ApplicationRecord
       sql_string = "SELECT #{distinct ? "DISTINCT" : ""} #{jsonb_column} -> '#{jsonb_column_key}' FROM #{table_name}" + where_condition_string.to_s
       sql_query = Arel.sql(sql_string)
       result = connection.exec_query(sql_query)
-      result.rows.flatten.map do |str|
+      result.rows.flatten.compact.map do |str|
         new_str = str.delete_prefix('"') if str.start_with?('"')
         new_str = new_str.delete_suffix('"') if new_str && new_str.end_with?('"')
         new_str || str # A string can be unquoted, in such cases, new_str is nil.
@@ -72,6 +72,7 @@ class ProductVariant < ApplicationRecord
           product_description: product_description,
           product_brand_id: brand.id,
           product_brand_name: brand.name,
+          product_type: product_type.name,
           variant_id: product_variant.id,
           variant_name: product_variant.name,
           variant_price: product_variant.variant_price,
@@ -86,7 +87,7 @@ class ProductVariant < ApplicationRecord
 
   def build_product_variant_for_cart(to_json = false)
     begin
-      valid_keys = [:product_name, :product_brand_name, :variant_id, :variant_name, :variant_price, :color, :size, :product_id]
+      valid_keys = [:product_name, :product_brand_name, :variant_id, :variant_name, :variant_price, :color, :size, :product_id, :product_type]
       product_details_hash = build_product_variant(to_json).keep_if do |k, v|
         valid_keys.include?(k)
       end

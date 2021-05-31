@@ -28,6 +28,7 @@ class Product < ApplicationRecord
             product_name: product_name,
             product_description: product_description,
             product_brand_id: brand.id,
+            product_type: product_type.name,
             product_brand_name: brand.name,
             variant_id: product_variant.id,
             variant_name: product_variant.name,
@@ -54,6 +55,7 @@ class Product < ApplicationRecord
             variant_id: product_variant.id,
             variant_name: product_variant.name,
             variant_price: product_variant.variant_price,
+            product_type: product_type.name,
             **available_variants_hash
           }.symbolize_keys
         end
@@ -87,6 +89,7 @@ class Product < ApplicationRecord
           product_id: id,
           product_brand_id: brand.id,
           product_brand_name: brand.name,
+          product_type: product_type.name,
           variant_id: product_variant.id,
           variant_name: product_variant.name,
           variant_price: product_variant.variant_price,
@@ -94,8 +97,8 @@ class Product < ApplicationRecord
         }.symbolize_keys
       end
       to_json ? product_details_hash.to_json : product_details_hash
-    rescue
-      {}
+    # rescue
+      # {}
     end
   end
 

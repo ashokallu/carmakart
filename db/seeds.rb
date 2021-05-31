@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 # Customer
 customer_attrs =
 [
@@ -52,7 +44,7 @@ product_type_shirt.brands << brands
 # T-Shirt
 product_type_t_shirt_attrs = {
   name: "T-Shirt",
-  product_attributes: ["Sleeve", "Pattern", "Fabric", "Neck Type", "Ideal For"]
+  product_attributes: ["Sleeve", "Pattern", "Fabric"]
 }
 
 product_type_t_shirt = ProductType.create(product_type_t_shirt_attrs)
@@ -71,7 +63,7 @@ brands.concat(new_brands)
 # Jeans
 product_type_jeans_attrs = {
   name: "Jeans",
-  product_attributes: ["Fabric", "Faded", "Rise", "Ideal For"]
+  product_attributes: ["Fabric", "Faded", "Rise"]
 }
 
 product_type_jeans = ProductType.create(product_type_jeans_attrs)
@@ -113,7 +105,6 @@ product_type_sandal = ProductType.create(product_type_sandals_attrs)
 product_type_sandal.brands << footwear_brands
 
 # Shirt
-
 product_name = [
   "Men Super Slim Fit Checkered Spread Collar Casual Shirt",
   "Men Super Slim Fit Solid Casual Shirt",
@@ -143,23 +134,25 @@ products = Product.create(product_attributes_arr);
 product_type = ProductType.find_by(name: Carmakart::Constants::ProductTypes::Shirt)
 product_attributes = ProductType.find_by(name: Carmakart::Constants::ProductTypes::Shirt).product_attributes
 
-colors = ["Red", "Blue", "Green", "Brown", "Pink", "Light Green"]
-sizes = Carmakart::Constants::TopWearSizes
-variants_hashes = []
-colors.each do |color|
-  sizes.each do |size|
-    variants_hashes << {"Color" => color, "Size" => size, "Sleeve" => "Full Sleeve", "Pattern" => "Solid", "Fabric" => "Pure Cotton"}
-  end
-end;
-
-3.times do
-  product = products.shift
+3.times do |i|
+  colors = ["Black", "Green", "Orange", "Yellow"]
+  sizes = Carmakart::Constants::TopWearSizes
+  variants_hashes = []
+  colors.each do |color|
+    sizes.each do |size|
+      variants_hashes << {"Color" => color, "Size" => size, "Sleeve" => "Full Sleeve", "Pattern" => "Solid", "Fabric" => "Pure Cotton"}
+    end
+  end;
+  product = products[i]
   product_variants_arr = []
   variants_hashes.each do |variants_hash|
     color = variants_hash["Color"]
     name = "#{product.product_name} - #{color}"
-    variant_specific_attributes = variants_hash.slice!(*product_attributes)
-    product_specific_attributes = variants_hash
+    product_specific_attributes = variants_hash.slice(*product_attributes)
+    product_attributes.each do |k|
+      variants_hash.delete(k)
+    end
+    variant_specific_attributes = variants_hash
     product_variants_arr << {
       sku_id: ProductVariant.generate_random_sku_id,
       product_type: product_type,
@@ -225,23 +218,25 @@ end;
 products = Product.create(product_attributes_arr);
 product_attributes = ProductType.find_by(name: Carmakart::Constants::ProductTypes::T_Shirt).product_attributes
 
-colors = ["Red", "Blue", "Green", "White"]
-sizes = Carmakart::Constants::TopWearSizes
-variants_hashes = []
-colors.each do |color|
-  sizes.each do |size|
-    variants_hashes << {"Color" => color, "Size" => size, "Sleeve" => "Half Sleeve", "Pattern" => "Striped", "Fabric" => "Cotton"}
-  end
-end;
-
 3.times do
+  colors = ["Black", "Green", "Orange", "Yellow"]
+  sizes = Carmakart::Constants::TopWearSizes
+  variants_hashes = []
+  colors.each do |color|
+    sizes.each do |size|
+      variants_hashes << {"Color" => color, "Size" => size, "Sleeve" => "Half Sleeve", "Pattern" => "Striped", "Fabric" => "Cotton"}
+    end
+  end;
   product_variant_arr = []
   product = products.shift
   variants_hashes.each do |variants_hash|
     color = variants_hash["Color"]
     name = "#{product.product_name} - #{color}"
-    variant_specific_attributes = variants_hash.slice!(*product_attributes)
-    product_specific_attributes = variants_hash
+    product_specific_attributes = variants_hash.slice(*product_attributes)
+    product_attributes.each do |k|
+      variants_hash.delete(k)
+    end
+    variant_specific_attributes = variants_hash
     product_variant_arr << {
       sku_id: ProductVariant.generate_random_sku_id,
       product_type: product_type,
@@ -283,23 +278,25 @@ products = Product.create(product_attributes_arr);
 product_attributes = ProductType.find_by(name: Carmakart::Constants::ProductTypes::Sports_Shoes).product_attributes
 product_type = ProductType.find_by(name: Carmakart::Constants::ProductTypes::Sports_Shoes)
 
-colors = ["Red", "Blue", "Green", "White", "Yellow", "Pink", "Black", "Light Green"]
-sizes = Carmakart::Constants::ShoeSizes
-variants_hashes = []
-colors.each do |color|
-  sizes.each do |size|
-    variants_hashes << {"Color" => color, "Size" => size, "Occassion" => "Sports", "Closure" => "Lace-Ups"}
-  end
-end;
-
 3.times do
+  colors = ["Black", "Green", "Orange", "Yellow"]
+  sizes = Carmakart::Constants::ShoeSizes
+  variants_hashes = []
+  colors.each do |color|
+    sizes.each do |size|
+      variants_hashes << {"Color" => color, "Size" => size, "Occassion" => "Sports", "Closure" => "Lace-Ups"}
+    end
+  end;
   product_variant_arr = []
   product = products.shift
   variants_hashes.each do |variants_hash|
     color = variants_hash["Color"]
-    name = "#{product.product_name} (#{color})"
-    variant_specific_attributes = variants_hash.slice!(*product_attributes)
-    product_specific_attributes = variants_hash
+    name = "#{product.product_name} - #{color}"
+    product_specific_attributes = variants_hash.slice(*product_attributes)
+    product_attributes.each do |k|
+      variants_hash.delete(k)
+    end
+    variant_specific_attributes = variants_hash
     product_variant_arr << {
       sku_id: ProductVariant.generate_random_sku_id,
       product_type: product_type,
@@ -313,5 +310,12 @@ end;
   ProductVariant.create(product_variant_arr)
 end;
 
+# delete old keys
+Redis.current.keys.each {|key| Redis.current.del(key)}
+
+# set session for a customer
+Customer.set_current_customer("1")
+
 # This will remove records from ProductVariant model that were created with empty "variant_specific_attributes" column
-ProductVariant.where(variant_specific_attributes: {}).destroy_all
+# ProductVariant.where(variant_specific_attributes: {}).destroy_all
+# ProductVariant.where(product_specific_attributes: {}).destroy_all
