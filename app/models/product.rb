@@ -4,7 +4,7 @@ class Product < ApplicationRecord
   # CallBacks
   before_save :assert_valid_brand_and_product_type
 
-  # Redis
+  # Redis attributes
   counter :variants_count
   value :primary_variant_id
 
@@ -17,22 +17,22 @@ class Product < ApplicationRecord
   # has_many :variants, class_name: "ProductVariant", dependent: :destroy
 
   class << self
-    def build_product(to_json = false, product_variant_id = nil, product_id)
+    def build_product(product_variant_id, to_json = false)
       begin
-        product = Product.where(id: product_id).includes(:brand).first
-        variant_id = product_variant_id.nil? ? product.primary_variant_id.value : product_variant_id
-        product_variant = product.product_variants.where(id: variant_id)
-        product_variant = product.primary_variant if product_variant.none?
+        product_variant = ProductVariant.find(product_variant_id)
+        product = product_variant.product
+        brand = product.brand
         product_details_hash = product.instance_eval do
           {
             product_id: id,
             product_name: product_name,
-            description: product_description,
-            brand_id: brand.id,
-            brand: brand.name,
+            product_description: product_description,
+            product_brand_id: brand.id,
+            product_brand_name: brand.name,
             variant_id: product_variant.id,
-            sku_id: product_variant.sku_id,
             variant_name: product_variant.name,
+            variant_price: product_variant.variant_price,
+            sku_id: product_variant.sku_id,
           }.merge(product_variant.variant_specific_attributes).merge(product_variant.product_specific_attributes).symbolize_keys
         end
         to_json ? product_details_hash.to_json : product_details_hash

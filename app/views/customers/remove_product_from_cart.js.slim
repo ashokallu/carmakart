@@ -1,0 +1,5 @@
+- if @cart_items_count
+  - selector = "#cart-items-count"
+  - cardSelector = "#product-#{@product_variant_id}-cart"
+| if ($('#{cardSelector}').length > 0) { $("#{cardSelector}").remove(); };
+| if ($('#{selector}').length > 0) { $("#{selector}").html(#{@cart_items_count}); };

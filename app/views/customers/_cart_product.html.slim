@@ -1,0 +1,25 @@
+- for_cart ||= false
+div id="product-#{item[:variant_id]}#{for_cart ? '-cart': ''}"
+  .col.my-2
+    .card.shadow[style="width: 190px;height:380px;"]
+      img src="#{asset_pack_path 'media/images/black-t-shirt.jpeg', size: '10x10', alt: 'Product is Missing'}"
+      .card-body.pt-1
+        .variants-info.d-flex.my-2.px-0.py-0.justify-content-around[style="font-size:0.6rem;"]
+          div.border.border-dark.m-1[style="width:30px;"]
+            .d-flex.justify-content-center
+              span href="#" == item[:size]
+          div.border.border-dark.m-1.flex-grow-2
+            .d-flex.justify-content-center
+              span href="#" == item[:color]
+        h5.card-title.mb-1[style="font-size:0.80rem;"]
+          == item[:product_brand_name]
+        p.mb-1[style="font-size:0.60rem;"]
+          == truncate item[:variant_name], length: 30
+        p.mb-1.mt-2[style="font-size:0.70rem;"]
+          strong ₹#{item[:variant_price]}
+        .cart.d-flex.justify-content-between
+          p[style="font-size:0.65rem;"]
+            == link_to 'more...', product_path(item[:product_id], variant_id: item[:variant_id])
+          p[style="font-size:0.65rem;"]
+            - if current_customer.cart_products.member?(item[:variant_id].to_s)
+              == link_to 'remove from cart',remove_product_from_cart_customers_path(variant_id: item[:variant_id]), method: :post, remote: true, id: "remove-from-cart-#{item[:variant_id]}"

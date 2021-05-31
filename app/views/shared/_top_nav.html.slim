@@ -1,19 +1,26 @@
-ul.nav.bg-primary.shadow-sm.justify-content-end.mt-2
-  li.nav-item
-    a.nav-link.px-1.active[aria-current="page" href="#"]
-      | Active
-  li.nav-item
-    a.nav-link.px-1[href="#{wishlist_customers_path}"]
-      button.btn.btn-primary.btn-sm[type="button"]
-        |  Wishlist
-        span.badge.bg-secondary.ms-2#wishlist-count
-          | #{current_customer.wishlist_products.count}
-  li.nav-item
-    a.nav-link.px-1[href="#"]
-      button.btn.btn-primary.btn-sm[type="button"]
-        |  Cart
-        span.badge.bg-secondary.ms-2
-          | 4
-  li.nav-item
-    a.nav-link.px-1[href="#" tabindex="-1" aria-disabled="true"]
-      | Disabled
+ul#main-navigation.nav.mt-2.sticky-top.justify-content-between.mx-3
+  .left
+    li.nav-item.align-self-end.ms-2
+      a.nav-link.px-1[href="#{root_path}"]
+        button.btn.btn-primary.btn-sm.top-nav-button[type="button"]
+          |  Carmakart
+  .right.d-flex
+    li.nav-item.align-self-end
+      a.nav-link.px-1[href="#{root_path}"]
+        button.btn.btn-primary.btn-sm.top-nav-button[type="button"]
+          |  HOME
+    li.nav-item.align-self-end
+      a.nav-link.px-1[href="#{wishlist_customers_path}"]
+        button.btn.btn-primary.btn-sm.top-nav-button[type="button"]
+          |  Wishlist
+          span.badge.bg-secondary.ms-2#wishlist-count
+            | #{current_customer.wishlist_products.count}
+    li.nav-item.align-self-end
+      a.nav-link.px-1[href="#{cart_customers_path}"]
+        button.btn.btn-primary.btn-sm.top-nav-button[type="button"]
+          |  Cart
+          span.badge.bg-secondary.ms-2#cart-items-count
+            | #{current_customer.cart_products.count}
+    li.nav-item.align-self-end
+      a.nav-link.px-1[href="#" tabindex="-1" aria-disabled="true"]
+        | Disabled

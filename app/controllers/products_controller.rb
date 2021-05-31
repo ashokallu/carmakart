@@ -8,7 +8,8 @@ class ProductsController < ApplicationController
 
   def show
     product_id = params[:id]
-    product_description_hash = Product.build_product(product_id) unless product_id.nil?
+    product_variant_id = params[:variant_id]
+    product_description_hash = ProductVariant.find(product_variant_id).build_product_variant unless product_id.nil?
     render "show", assigns: {product_description_hash: product_description_hash}
   end
 end

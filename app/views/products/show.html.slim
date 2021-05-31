@@ -1,4 +1,32 @@
 == javascript_packs_with_chunks_tag 'products'
 == stylesheet_packs_with_chunks_tag 'products', media: 'all'
 
-== render "shared/product", item: @product_description_hash
+- item = @product_description_hash
+
+/ .card.mb-3[style="max-width: 1024;"]
+.card.mb-3
+  .row.g-0
+    .col-3.col-sm-6.col-md-5.col-lg-4.my-2.d-flex.justify-content-center
+      == image_tag("#{asset_pack_path 'media/images/black-t-shirt.jpeg', alt: 'Edit Entry'}", {:style => "width:250px;height:325px;"})
+    .col
+      .card-body
+        p.mt-1.text-uppercase.fw-light.mb-1[style="font-size:0.6rem;"] == item[:product_brand_name]
+        h5.card-title.fw-normal[style="font-size:1rem;"] == item[:variant_name]
+        p.mb-1.mt-2[style="font-size:1.25rem;"]
+          strong ₹#{item[:variant_price]}
+        p.d-flex.flex-grow-1.justify-content-center.border.text-center.border-dark[style="width:30px;"] == item[:size]
+        p
+          span.border.border-dark.p-1 == item[:color]
+        .d-flex.justify-content-between[style="width:300px;"]
+          p
+            span.border.border-dark.p-1 == item[:fabric]
+          p
+            span.border.border-dark.p-1 == item[:sleeve]
+          p
+            span.border.border-dark.p-1 == item[:pattern]
+        div
+          | SKU ID :
+          span == item[:sku_id]
+        .d-flex.mt-4
+          button.btn.btn-buy.btn-lg[type="button"]
+            == link_to 'ADD TO CART', add_product_to_cart_customers_path(variant_id: item[:variant_id]), method: :post, remote: true, id: "add-to-cart-#{item[:variant_id]}", class: ["link-light", "text-decoration-none"]

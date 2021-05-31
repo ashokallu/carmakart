@@ -1,0 +1,4 @@
+.container-fluid.p-0
+  .row.row-cols-sm-2.row-cols-md-3.row-cols-lg-4.p-0.bg-white
+    - @products.each do |product|
+      == render 'cart_product', item: product, for_cart: @for_cart

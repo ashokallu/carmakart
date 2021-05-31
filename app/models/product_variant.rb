@@ -1,4 +1,6 @@
 class ProductVariant < ApplicationRecord
+  include Redis::Objects
+
   # You must only pass single quoted values to 'jsonb_column_key' argument
   # This is an alias for the argument to ::fetch_distinct_values_from_a_jsonb_column
   ALIASES = {
@@ -6,9 +8,7 @@ class ProductVariant < ApplicationRecord
     Color: 'Color',
   }
 
-  include Redis::Objects
-
-  # Redis
+  # Redis attributes
   counter :quantity
 
   # one-to-one relationship
@@ -48,7 +48,7 @@ class ProductVariant < ApplicationRecord
       result.rows.flatten.map do |str|
         new_str = str.delete_prefix('"') if str.start_with?('"')
         new_str = new_str.delete_suffix('"') if new_str && new_str.end_with?('"')
-        new_str || str
+        new_str || str # A string can be unquoted, in such cases, new_str is nil.
       end
     end
   end
@@ -59,6 +59,40 @@ class ProductVariant < ApplicationRecord
     where_conditions_hash.merge!(product_id: self.product_id)
     ALIASES.values.each_with_object(attributes_hash) do |jsonb_column_key, obj|
       obj[jsonb_column_key.downcase.to_sym] = self.class.fetch_distinct_values_from_a_jsonb_column(jsonb_column_name, jsonb_column_key, where_conditions_hash)
+    end
+  end
+
+  def build_product_variant(to_json = false)
+    begin
+      product_variant = self
+      product_details_hash = product.instance_eval do
+        {
+          product_id: id,
+          product_name: product_name,
+          product_description: product_description,
+          product_brand_id: brand.id,
+          product_brand_name: brand.name,
+          variant_id: product_variant.id,
+          variant_name: product_variant.name,
+          variant_price: product_variant.variant_price,
+          sku_id: product_variant.sku_id,
+        }
+      end.merge(variant_specific_attributes).merge(product_specific_attributes).symbolize_keys.transform_keys! {|k| k.downcase}
+      to_json ? product_details_hash.to_json : product_details_hash
+    rescue
+      {}
+    end
+  end
+
+  def build_product_variant_for_cart(to_json = false)
+    begin
+      valid_keys = [:product_name, :product_brand_name, :variant_id, :variant_name, :variant_price, :color, :size, :product_id]
+      product_details_hash = build_product_variant(to_json).keep_if do |k, v|
+        valid_keys.include?(k)
+      end
+      to_json ? product_details_hash.to_json : product_details_hash
+    rescue
+      {}
     end
   end
 
