@@ -33,8 +33,9 @@ gem 'kaminari' # Scope & Engine based, clean, powerful, customizable paginator f
 gem 'redis' # A Ruby client that tries to match Redis' API one-to-one.
 gem 'redis-rails' # Redis for Ruby on Rails.
 # Map Redis types directly to Ruby objects. Works with any class or ORM.
-gem 'redis-objects', :path => 'vendor/git/redis-objects-master'
-# gem 'hiredis'
+# gem 'redis-objects', :path => 'vendor/git/redis-objects-master'
+gem 'redis-objects'
+gem 'hiredis'
 gem 'redis-namespace' # Adds a Redis::Namespace class which can be used to namespace calls to Redis.
 # gem 'redis-rack-cache'
 # gem 'redis-store'
