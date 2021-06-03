@@ -11,8 +11,6 @@ gem 'pg', '~> 1.2.3'
 gem 'puma', '~> 5.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.0'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -40,6 +38,18 @@ gem 'redis-namespace' # Adds a Redis::Namespace class which can be used to names
 # gem 'redis-rack-cache'
 # gem 'redis-store'
 # gem 'redis-session-store' # A drop-in replacement for e.g. MemCacheStore to store Rails sessions
+
+# API
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.7'
+# ActiveModel::Serializers allows you to generate your JSON in an object-oriented and convention-driven manner.
+gem 'active_model_serializers'
+# A Ruby framework for rapid API development with great conventions.
+gem 'grape'
+gem 'oj' # The fastest JSON parser and object serializer (Optimised JSON).
+# API documentation
+gem 'grape-swagger'
+gem 'rswag-ui'
 
 # Search
 gem 'sunspot_rails' # Sunspot::Rails is an extension to the Sunspot library for Solr search.
