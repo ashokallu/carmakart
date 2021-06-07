@@ -1,0 +1,29 @@
+/ .card.m-2[style="width: 50rem;"]
+.container-fluid
+  .card.m-2.bg-dark
+    .card-body
+      h5.card-title.book-title
+        = item.book.title
+      h6.card-subtitle.mb-2.text-muted.fs-6
+        = item.book.author
+      h6.card-subtitle.mb-2.mt-4
+        - if item.status == 1
+          span.badge.bg-success
+            = "book claimed on #{item.updated_at.to_date.to_s(:long)}"
+      .d-flex.mt-4.justify-content-between.align-items-center
+        - if item.status == 1
+          button.btn.btn-buy.btn-sm[type="button"]
+            == link_to 'CREATE A NOTE', new_reader_book_note_path(item.reader, item.book, item_id: "create-note-#{item.id}"), method: :get, remote: true, id: "create-note-#{item.id}", class: ["link-light", "text-decoration-none"], data: { "modal-id" => "modal-create-note-#{item.id}" }
+        - if item.status == 1
+          button.btn.btn-return.btn-sm.ms-2[type="button"]
+            == link_to 'RETURN THIS BOOK', return_book_reader_book_path(item.reader, item.book, item_id: "#{item.id}"), method: :post, remote: true, id: "return-book-#{item.id}", class: ["link-light", "text-decoration-none"]
+        - elsif item.status == 2
+          span.badge.bg-danger.d-inline-flex[style="height:21px;"]
+            div
+              == "book returned on #{item.updated_at.to_date.to_s(:long)}"
+
+      - notes = item.reader.notes.where(book_id: item.book.id)
+
+      - notes.each_with_index do |note, idx|
+        div.mt-4 id="accordion-for-#{note.id}" class="accordion"
+          = render "notes/note", item: note, item_id: idx

@@ -9,10 +9,11 @@ html
     = stylesheet_packs_with_chunks_tag 'application', media: 'all'
     = javascript_packs_with_chunks_tag 'application'
   body.bg-light
-    = render 'shared/top_nav'
     .container-fluid.mt-2.px-4
-      .row.bg-white
-        .col-2.border.border-dark.shadow-sm.me-1.bg-white.p-1
-          = render 'shared/left_side_bar'
-        .col.border.border-dark.bg-white.ms-1.bg-white
+      / .row.bg-white.site-bg
+      / .row.bg-white
+      .row
+        .col-2.col-sm-1.col-md-1.col-lg-2.border.border-dark.shadow-sm.me-1.site-bg.p-1
+          / = render 'shared/left_side_bar'
+        .col.border.border-dark.ms-1.site-bg
           = yield

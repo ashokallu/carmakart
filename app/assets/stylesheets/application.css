@@ -9,3 +9,8 @@ ul#main-navigation, .btn-buy {
 .top-nav-button {
   background-color: rgb(156 39 176) !important;
 }
+
+.site-bg {
+  /*background-color: rgba(139, 45, 210, 0.67);*/
+  background-color: rgba(139, 12, 163, 0.67);
+}

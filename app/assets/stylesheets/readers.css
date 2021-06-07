@@ -1,0 +1,24 @@
+.btn-return {
+  background-color: rgb(255, 87, 34);
+}
+
+.btn-delete {
+  background-color: red;
+}
+
+.book-title {
+  color: rgb(7, 250, 17);
+}
+
+.modal-label {
+  /*color: rgb(233, 30, 99);*/
+  color: black;
+}
+
+.fs-7 {
+  font-size: 0.90rem !important;
+}
+
+.modal-button {
+  background-color: rgb(7, 250, 17);
+}

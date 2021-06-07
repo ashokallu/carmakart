@@ -65,6 +65,8 @@ group :development, :test do
 
   # Test Frameworks
   gem 'rspec' # TDD for Ruby
+
+  gem 'faker'
 end
 
 group :development do

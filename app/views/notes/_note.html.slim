@@ -1,0 +1,22 @@
+.accordion-item
+  h2.accordion-header
+    == button_tag "Note #{item_id + 1}", data: { "bs-toggle" => "collapse", "bs-target" =>"#note#{item.id}" }, class: ["accordion-button"], "type" => "button"
+  div id="note#{item.id}" class="accordion-collapse collapse" data-bs-parent="#accordion-for-#{item.id}"
+    .accordion-body
+      p.mb-4.text-success
+        strong
+          | #{item.description}
+      p
+        strong uni_grams are - 
+        == item.keywords["uni_grams"].join(", ")
+      p
+        strong bi_grams are - 
+        == item.keywords["bi_grams"].join(", ")
+      p
+        strong tri_grams are - 
+        == item.keywords["tri_grams"].join(", ")
+      .d-flex.justify-content-end
+        button.btn.btn-buy.btn-sm.me-2[type="button"]
+          == link_to 'EDIT NOTE', edit_note_path(item), method: :get, remote: true, id: "edit-note-#{item.id}", class: ["link-light", "text-decoration-none"], data: { "modal-id" => "modal-edit-note-#{item.id}" }
+        button.btn.btn-delete.btn-sm[type="button"]
+          == link_to 'DELETE NOTE', note_path(item, {"accordion-id" => "accordion-for-#{item.id}"}), method: :delete, remote: true, id: "create-note-#{item.id}", class: ["link-light", "text-decoration-none"]

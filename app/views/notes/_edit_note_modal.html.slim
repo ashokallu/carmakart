@@ -1,0 +1,19 @@
+div id="modal-edit-note-#{modal_id}" class="modal fade edit-note-modal" tabindex="-1" aria-hidden="true"
+  .modal-dialog.modal-dialog-centered
+    .modal-content.bg-dark
+      .modal-header
+        h5#exampleModalLabel.modal-title.book-title
+          | EDIT NOTE
+        button.btn-close.modal-button[type="button" data-bs-dismiss="modal" aria-label="Close"]
+      = form_for @note, url: note_url(@note), :remote => true, html: {class: "needs-validation"} do |f|
+        .modal-body
+          .form-floating.mb-3
+            = f.text_field :page_number, { class: ["form-control"], placeholder: "Enter the page number for the note", required: true}
+            = f.label :page_number, 'Page Number', { class: ["form-label", "modal-label", "fs-7"]}
+          .form-floating.mb-3
+            = f.text_area :description, { class: ["form-control"], placeholder: "Enter the description for the note", style: "height:150px;", required: true}
+            = f.label :description, 'Description', { class: ["form-label", "modal-label", "fs-7"]}
+        .modal-footer[style="border-top:0;"]
+          button.btn.btn-secondary[type="button" data-bs-dismiss="modal"]
+            | Close
+          = f.submit nil, {class: ["btn", "btn-buy", "link-light"]} 

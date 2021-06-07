@@ -1,0 +1,5 @@
+- if @note.destroyed?
+  - selector = "#accordion-for-#{@note.id}"
+  | if ($('#{selector}').length > 0) {
+  |   $('#{selector}').remove();
+  | }

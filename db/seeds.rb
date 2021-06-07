@@ -319,3 +319,58 @@ Customer.set_current_customer("1")
 # This will remove records from ProductVariant model that were created with empty "variant_specific_attributes" column
 # ProductVariant.where(variant_specific_attributes: {}).destroy_all
 # ProductVariant.where(product_specific_attributes: {}).destroy_all
+
+# Reader
+reader_attributes_proc = -> () {
+  first_name = Faker::Name.first_name
+  time = Time.current
+  {
+    first_name: first_name,
+    last_name: Faker::Name.last_name,
+    age: rand(100),
+    email: "#{first_name}@library.com",
+    created_at: time,
+    updated_at: time
+  }
+}
+
+reader_attributes_arr = 10.times.map { reader_attributes_proc.call }
+
+Reader.insert_all(reader_attributes_arr, returning: [:id])
+
+# Book
+# title
+# author
+# isbn
+
+Book.column_names
+# => ["id", "title", "author", "isbn", "created_at", "updated_at"]
+
+books_attrs_proc = -> () {
+  time = Time.current
+  {
+    title: Faker::Book.unique.title,
+    author: Faker::Book.author,
+    isbn: Book.generate_isbn,
+    created_at: time,
+    updated_at: time
+  }
+}
+
+books_attrs_arr = 20.times.map { books_attrs_proc.call };
+
+Book.insert_all(books_attrs_arr, returning: [:id])
+
+Faker::Book.unique.clear
+
+# History
+book = Book.first
+reader = Reader.first
+
+history_record = History.create({book: book, reader: reader, status: History::STATUS::CLAIMED})
+
+book = Book.first
+reader = Reader.find(2)
+History.create(book: book, reader: reader, status: History::STATUS::CLAIMED)
+
+# 

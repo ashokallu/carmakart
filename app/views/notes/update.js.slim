@@ -1,0 +1,6 @@
+- if @note.persisted?
+  - selector = ".edit-note-modal"
+  | if ($('#{selector}').length > 0) {
+  |   $('#{selector}').remove();
+  |   $(".modal-backdrop").remove();
+  | }

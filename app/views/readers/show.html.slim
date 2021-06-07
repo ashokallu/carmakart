@@ -1,0 +1,7 @@
+== javascript_packs_with_chunks_tag 'readers'
+== stylesheet_packs_with_chunks_tag 'readers', media: 'all'
+
+.row.row-cols-1.row-cols-sm-1.row-cols-md-1.row-cols-lg-1.row-cols-xl-1.justify-content-center
+  .d-flex.align-items-center.flex-column[style="width:50rem;"]
+    - @histories.each do |history|
+      == render "books/book", item: history

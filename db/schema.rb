@@ -10,11 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_29_053749) do
+ActiveRecord::Schema.define(version: 2021_06_06_060215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
+
+  create_table "books", force: :cascade do |t|
+    t.string "title", limit: 64, null: false
+    t.string "author", limit: 64, null: false
+    t.string "isbn", limit: 16, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "last_claimed_on"
+    t.datetime "last_returned_on"
+    t.integer "pages"
+    t.index ["author"], name: "index_books_on_author"
+    t.index ["isbn"], name: "index_books_on_isbn"
+    t.index ["title"], name: "index_books_on_title"
+  end
 
   create_table "brands", force: :cascade do |t|
     t.string "name", limit: 64, null: false
@@ -34,6 +48,29 @@ ActiveRecord::Schema.define(version: 2021_05_29_053749) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["first_name"], name: "index_customers_on_first_name"
     t.index ["last_name"], name: "index_customers_on_last_name"
+  end
+
+  create_table "histories", force: :cascade do |t|
+    t.bigint "reader_id", null: false
+    t.bigint "book_id", null: false
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_histories_on_book_id"
+    t.index ["reader_id"], name: "index_histories_on_reader_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.integer "page_number", null: false
+    t.text "description"
+    t.bigint "reader_id"
+    t.bigint "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "keywords", default: "{}"
+    t.index ["book_id"], name: "index_notes_on_book_id"
+    t.index ["keywords"], name: "index_notes_on_keywords", using: :gin
+    t.index ["reader_id"], name: "index_notes_on_reader_id"
   end
 
   create_table "product_types", force: :cascade do |t|
@@ -78,6 +115,19 @@ ActiveRecord::Schema.define(version: 2021_05_29_053749) do
     t.index ["variant_attributes"], name: "index_products_on_variant_attributes", using: :gin
   end
 
+  create_table "readers", force: :cascade do |t|
+    t.string "first_name", limit: 64, null: false
+    t.string "last_name", limit: 64, null: false
+    t.integer "age", null: false
+    t.string "email", limit: 64, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["first_name"], name: "index_readers_on_first_name"
+    t.index ["last_name"], name: "index_readers_on_last_name"
+  end
+
+  add_foreign_key "histories", "books"
+  add_foreign_key "histories", "readers"
   add_foreign_key "product_variants", "product_types"
   add_foreign_key "product_variants", "products"
   add_foreign_key "products", "brands"
