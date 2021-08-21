@@ -4,15 +4,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
+# gem 'rails', '~> 6.1.3', '>= 6.1.3.2'
+gem 'rails'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.2.3'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.0'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7'
+gem 'sprockets', '~> 3.7.2'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -28,6 +29,41 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'kaminari' # Scope & Engine based, clean, powerful, customizable paginator for Rails 4+.
 
 # gem 'dalli' # High performance memcached client for Ruby.
+
+# API
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder.
+gem 'jbuilder', '~> 2.7'
+# ActiveModel::Serializers allows you to generate your JSON in an object-oriented and convention-driven manner.
+gem 'active_model_serializers'
+gem 'jsonapi.rb'
+# object serialization to 'jsonapi.rb' is powered by JSON:API Serializer, was fast_jsonapi
+# gem 'jsonapi-serializer' # A dependency gem for 'jsonapi.rb' gem.
+# A Ruby framework for rapid API development with great conventions.
+gem 'grape'
+# Provides a Formatter for the Grape API DSL to emit objects serialized with 'active_model_serializers'.
+gem 'grape-active_model_serializers'
+gem 'oj' # The fastest JSON parser and object serializer (Optimised JSON).
+# API documentation
+gem 'grape-swagger'
+gem 'grape-path-helpers'
+gem 'grape-route-helpers'
+gem 'grape-entity'
+gem 'grape_logging'
+gem 'grape_on_rails_routes'
+gem 'rswag-ui'
+gem 'rack-cors', '~> 1.0.6', require: 'rack/cors'
+
+# Graphql
+gem 'graphql'
+gem 'graphql-batch', '0.4.3'
+# gem 'graphql', '~> 1.11.8'
+# NOTE: graphiql-rails v1.5+ doesn't work: https://gitlab.com/gitlab-org/gitlab/issues/31771
+# TODO: remove app/views/graphiql/rails/editors/show.html.erb when https://github.com/rmosolgo/graphiql-rails/pull/71 is released:
+# https://gitlab.com/gitlab-org/gitlab/issues/31747
+# gem 'graphiql-rails', '~> 1.4.10'
+gem 'apollo_upload_server', '~> 2.0.2'
+gem 'graphql-docs', '~> 1.6.0', group: [:development, :test]
+gem 'graphlient', '~> 0.4.0' # Used by BulkImport feature (group::import)
 
 # Redis
 gem 'redis' # A Ruby client that tries to match Redis' API one-to-one.
@@ -91,3 +127,4 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 # gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'graphiql-rails', group: :development
